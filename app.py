@@ -10,6 +10,9 @@ def init():
     import pandas as pd 
     import requests, io
     device = 0 if torch.cuda.is_available() else -1
+    %cd vila/examples/end2end-sci-pdf-parsing
+    os.system("docker build -t vila-service .")
+    os.system("docker run -p 8080:8080 -ti vila-service")
 
 # Inference is ran for every server call
 # Reference your preloaded global model variable here.
