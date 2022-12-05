@@ -14,19 +14,19 @@ def init():
 # Inference is ran for every server call
 # Reference your preloaded global model variable here.
 def inference(inputs:dict) -> dict:
-    path= inputs.get("path",None)
-    pdf= inputs.get("pdf",None)
+    path = inputs.get("type",None)
+    pdfType= inputs.get("pdf",None)
     if path == None:
-        return {'message': "No path provided"}
+        return {'message': "No pdf path provided"}
 
-    if pdf == "bytes":
+    if pdfType == "bytes":
         try: 
-            files = {"pdf_file": ("pdf.pdf", pdf, "multipart/form-data")}
+            files = {"pdf_file": ("pdf.pdf", path, "multipart/form-data")}
             r = requests.post('http://localhost:8080/parse', files=files)
             parsed = pd.read_csv(io.StringIO(r.content.decode('utf-8')))
         except:
             return {'message': "Invalid pdf bytes"}
-    elif pdf =="url":
+    elif pdfType =="url":
         try:
             relative_coordinates = True # whether returning relative coordinates or not 
             parsed = pd.read_csv(f"http://127.0.0.1:8080/parse/?pdf_url={path}&relative_coordinates={relative_coordinates}")
