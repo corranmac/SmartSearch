@@ -4,10 +4,14 @@
 # In this example: A Huggingface BERT model
 
 from transformers import pipeline
+import os
 
-def download_model():
-    # do a dry run of loading the huggingface model, which will download weights
-    pipeline('fill-mask', model='bert-base-uncased')
+def build_docker():
+    os.system("git clone https://github.com/allenai/vila.git")
+    os.system("git clone https://github.com/allenai/vila.git")
+    os.system("cd vila/examples/end2end-sci-pdf-parsing")
+    os.system("docker build -t vila-service .")
+    os.system("docker run -p 8080:8080 -ti vila-service")
 
 if __name__ == "__main__":
-    download_model()
+    build_docker()
