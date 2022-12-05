@@ -10,6 +10,12 @@ RUN apt-get update && apt-get install -y git
 RUN pip3 install --upgrade pip
 ADD requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
+RUN pip install --upgrade pip setuptools wheel
+
+# For now, we need to install a version of vila from github directly  
+RUN pip install "git+https://github.com/allenai/vila.git#egg=vila" 
+# Install additional requirements for the api
+RUN pip install --no-cache-dir -r requirements.txt
 
 # We add the banana boilerplate here
 ADD server.py .
