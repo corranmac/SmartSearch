@@ -1,4 +1,6 @@
 sanic==22.6.2
-transformers
-accelerate
 pandas
+fastapi[all]
+aiofiles
+aiohttp
+requests
